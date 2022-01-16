@@ -1,0 +1,33 @@
+﻿@using Filmevi.Models
+@model List<film>
+
+
+    @{
+        Layout = "~/Views/_Layout.cshtml";
+    }
+
+
+
+
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <div class="container">
+        <div class="col-lg-12">
+            <div class="row">
+                @foreach(film item in Model )
+                {
+                <div class="p-1 col-sm-3 ">
+                    <a  href="/Home/Film/@item.Filmid">
+
+                    <div class="card" >
+                        <img src="~/FilmCover/@item.FilmCover" alt="" />
+                        <p class="p-1 text-center">@item.FilmName</p>
+                    </div>
+                    </a>
+                </div>
+                }
+            </div>
+        </div>
+
+    </div>

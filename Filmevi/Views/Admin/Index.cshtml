@@ -1,0 +1,96 @@
+﻿
+<h2 class="p-3 text-center">Admin Panel</h2>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+<link href="~/DashboardUI/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/DashboardUI/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+
+@using Filmevi.Models
+@model List<film>
+
+<div class="p-5">
+    <div class="row">
+        <div class=" card col-md-6">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+           
+            <script>
+            var xValues = [];
+            var yValues = [];
+             @{
+                   Context c = new Context();
+
+                 foreach (var item in Constant.CATEGORIES)
+                 {
+
+                      @:xValues.push("@item");
+                     var values = c.films.ToList().FindAll(x => x.FilmCatagory == @item);
+                       @:yValues.push(@values.Count);
+
+                 }
+             }
+            var barColors = [
+                "#C0392B",
+                "#9B59B6",
+                "#2980B9",
+                "#1ABC9C",
+                "#F1C40F",
+                "#34495E",
+                "#E67E22",
+                "#27AE60",
+            ];
+
+            new Chart("myChart", {
+                type: "pie",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: "Kategoriye Göre Film Dağılımı",
+                    }
+                }
+            });
+            </script>
+
+
+
+                    </div>
+        <div class="col-md-6">
+            <a href="/Admin/AddFilm/" class="btn btn-primary">Film Ekle</a>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Film id</th>
+                        <th>Filmin ismi</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (film item in Model)
+                    {
+                        <tr>
+                            <th >@item.Filmid</th>
+                            <td>@item.FilmName</td>
+                            <td><a href="/Admin/RemoveFilm/@item.Filmid" class="btn btn-danger">Sil</a></td>
+                        </tr>
+       }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+

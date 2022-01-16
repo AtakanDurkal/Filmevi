@@ -1,0 +1,76 @@
+﻿@using Filmevi.Models
+<link href="~/DashboardUI/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/DashboardUI/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <br />
+        <br />
+        <br />
+        <div class="card card-user">
+            <div class="card-header">
+                <h5 class="card-title">Film Ekle</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Film Adı</label>
+                                <input name="FilmName" type="text" class="form-control" placeholder="Film Adı">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Film Açıklaması</label>
+                                <input name="FilmDesciption" type="text" class="form-control" placeholder="Film Açıklaması">
+                            </div>
+                        </div>
+                    </div>
+
+                    <label for="imageFile">Film Kapak Ekle</label>
+                    <input type="file" class="form-control-file" id="document_attachment_doc" name="FilmCover" required="" />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Film Kategori</label>
+
+                                <select name="FilmCatagory" class="custom-select">
+
+                                    @foreach (var item in Constant.CATEGORIES)
+                                    {
+                        <option value="@item">@item</option>
+}
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="update ml-auto mr-auto">
+                            <input type="submit" name="submit" class="btn btn-primary btn-round" value="Film Ekle">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> <div class="col-md-4"></div>
+</div>
+
+
+
+<script>
+    const fileInput = document.getElementById("document_attachment_doc");
+
+    window.addEventListener('paste', e => {
+        fileInput.files = e.clipboardData.files;
+    });
+</script>

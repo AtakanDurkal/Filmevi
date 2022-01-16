@@ -1,0 +1,75 @@
+﻿@using Filmevi.Models
+@model film
+
+
+@{
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+
+
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<div class="container">
+    <div class="col-lg-12">
+        <div class="row">
+
+            <div class="p-1 col-sm-6 ">
+                <div class="card">
+                    <img src="~/FilmCover/@Model.FilmCover" alt="" />
+                </div>
+            </div>
+            <div class="p-1 col-sm-6 ">
+                <div class="card">
+                    <br />
+                    <h3 class="align-self-center">@Model.FilmName</h3>
+                    <hr />
+                    <p class="p-1 text-center">@Model.FilmDesciption</p>
+                </div>
+
+
+                <br />
+                <div class="card">
+                    <form method="post">
+                        <input name="filmid" type="text" class=" form-control" style="display:none;" value="@Model.Filmid">
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group p-1">
+                                    <label class="p-1">Yorum Ekle</label>
+                                    <input name="text" type="text" class=" form-control" placeholder="yorum...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row m-1">
+                            <div class="update ml-auto mr-auto">
+                                <input type="submit" name="submit" class="btn btn-primary btn-round" value="Yorum Ekle">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <br />
+                <h4>Yorumlar</h4>
+                @{
+                    Context c = new Context();
+                    var values = c.comments.ToList().FindAll(x => x.filmid == @Model.Filmid);
+
+                    foreach (var item in values)
+
+                    {
+                        <br />
+                        <div class="card">
+
+                            <p class="p-1 ">@item.text</p>
+                        </div> }
+                }
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
